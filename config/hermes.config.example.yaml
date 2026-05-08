@@ -1,0 +1,79 @@
+# Secret-free Hermes profile template.
+# Copy to $HERMES_HOME/config.yaml and keep real keys in $HERMES_HOME/.env.
+
+profile:
+  name: chip-hermes
+  description: MiniMax-first Hermes profile with Groq voice, MiniMax image understanding, and Cognee-ready memory.
+
+model:
+  provider: minimax
+  alias: mmfast
+  id: MiniMax-M2.7-highspeed
+  reasoning: high
+  temperature: 0.3
+  max_tokens: 4096
+
+model_aliases:
+  mmfast:
+    provider: minimax
+    id: MiniMax-M2.7-highspeed
+    reasoning: high
+    use_for: default fast but thoughtful Hermes replies
+  gptt:
+    provider: openai-codex
+    id: gpt-5.4
+    reasoning: high
+    use_for: deeper GPT thinking sessions when Codex auth is available
+
+agent:
+  language: ru
+  image_input_mode: text
+  voice_input_mode: text
+  default_style:
+    concise: true
+    practical: true
+    remember_context: true
+
+stt:
+  provider: groq
+  model: whisper-large-v3-turbo
+  api_key_env: GROQ_API_KEY
+
+auxiliary:
+  vision:
+    provider: minimax_mcp
+    mcp_server: minimax-coding-plan
+    tool: understand_image
+    api_key_env: MINIMAX_API_KEY
+
+mcp_servers:
+  minimax-coding-plan:
+    command: $HOME/.local/bin/minimax-mcp-wrapper
+    cwd: $HOME
+    env:
+      MINIMAX_API_KEY: ${MINIMAX_API_KEY}
+
+memory:
+  provider: cognee
+  memory_enabled: true
+  user_profile_enabled: true
+  live_recall_scope: session
+
+plugins:
+  cognee:
+    runtime_dir: $HERMES_HOME/cognee
+    dataset: hermes-dialogues
+    session_id: hermes-global-dialogues
+
+skills:
+  - gptprof-hermes
+
+security:
+  env_file_mode: "0600"
+  never_commit:
+    - .env
+    - auth.json
+    - auth-profiles.json
+    - sessions.json
+    - cognee/
+    - logs/

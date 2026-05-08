@@ -1,0 +1,25 @@
+[Unit]
+Description=Hermes Telegram gateway
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=hermes
+Group=hermes
+Environment=HOME=/home/hermes
+Environment=HERMES_HOME=/home/hermes/.hermes
+Environment=PYTHONPATH=/opt/hermes-agent
+WorkingDirectory=/opt/hermes-agent
+ExecStart=/opt/hermes-agent/venv/bin/python -m hermes_cli.main gateway run --replace
+Restart=always
+RestartSec=5
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=/home/hermes/.hermes
+
+[Install]
+WantedBy=multi-user.target
