@@ -1,0 +1,60 @@
+# Secret-free Telegram Business delegated inbox example for Hermes.
+# Copy only the needed blocks into $HERMES_HOME/config.yaml.
+# Keep real tokens, chat IDs, user IDs, and auth stores outside git.
+
+telegram:
+  reactions: false
+  channel_prompts: {}
+  allowed_chats: []
+
+  # Normal Telegram gating remains operator-directed.
+  require_mention: true
+  mention_patterns:
+    - (?i)\bsigurd\b
+    - (?i)\bсигурд\b
+  group_context_messages: 50
+
+  business:
+    enabled: true
+
+    # Prefix-style triggers for delegated 1-to-1 Business chats.
+    # Examples: "Sigurd, find X", "Сигурд расскажи".
+    trigger_words:
+      - Sigurd
+      - Сигурд
+
+    # Leave empty to allow all Business chats through the trigger gate.
+    # Use placeholders only in public docs.
+    allowed_chats: []
+    cooldown_seconds: 2.0
+
+stt:
+  enabled: true
+  provider: local
+  local:
+    model: base
+    language: ''
+
+compression:
+  enabled: true
+  threshold: 0.5
+  target_ratio: 0.2
+  protect_last_n: 20
+  hygiene_hard_message_limit: 400
+
+auxiliary:
+  compression:
+    provider: auto
+    model: ''
+    base_url: ''
+    api_key: ''
+    timeout: 300
+    extra_body: {}
+
+  web_extract:
+    provider: auto
+    model: ''
+    base_url: ''
+    api_key: ''
+    timeout: 360
+    extra_body: {}

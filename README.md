@@ -10,6 +10,8 @@ This repository captures the safe parts of the Hermes setup:
 - Groq speech-to-text for Telegram voice messages.
 - MiniMax Token Plan MCP image understanding through `understand_image`.
 - Cognee-ready memory settings with isolated per-user runtime roots.
+- Telegram Business delegated inbox setup with operator-only triggers and
+  external web-only safe mode.
 
 It intentionally does not contain live tokens, private chat IDs, database
 passwords, production `.env` files, or copied server state.
@@ -28,6 +30,7 @@ docs/
   deployment.md
 skills/
   gptprof-hermes/SKILL.md
+  telegram-business-hermes/SKILL.md
 scripts/
   scan-secrets.py
 ```

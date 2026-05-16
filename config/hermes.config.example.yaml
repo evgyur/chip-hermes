@@ -34,6 +34,19 @@ agent:
     practical: true
     remember_context: true
 
+telegram:
+  require_mention: true
+  mention_patterns:
+    - (?i)\bsigurd\b
+    - (?i)\bсигурд\b
+  business:
+    enabled: true
+    trigger_words:
+      - Sigurd
+      - Сигурд
+    allowed_chats: []
+    cooldown_seconds: 2.0
+
 stt:
   provider: groq
   model: whisper-large-v3-turbo
@@ -67,6 +80,7 @@ plugins:
 
 skills:
   - gptprof-hermes
+  - telegram-business-hermes
 
 security:
   env_file_mode: "0600"

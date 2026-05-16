@@ -1,0 +1,3 @@
+display_name: Telegram Business Hermes
+short_description: Configure Hermes for Telegram Business delegated inbox safely.
+default_prompt: Configure Hermes Agent for Telegram Business delegated inbox with operator full mode, external web-only safe mode, and business_connection_id delivery.
